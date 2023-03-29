@@ -2,7 +2,7 @@ package conta.model;
 
 import conta.util.Cores;
 
-public class conta {
+public abstract class conta {
 
 	private int numero;
 	private int agencia;

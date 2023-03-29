@@ -13,13 +13,8 @@ public class Menu {
 	
 	
 	public static void main(String[] args) {
-	// teste da classe conta
-		conta c1 = new conta(1, 123, 1, " Gustavo", 10000.0f);
-		c1.visualizar();
-		c1.sacar(12000.0f);
-		c1.visualizar();
-		c1.depositar(5000.0f);
-		c1.visualizar();
+
+		
 		
 // teste da classe C.C
 		contacorrente cc1 = new contacorrente(2, 123, 1, " Jéssica", 10000.0f, 15.0f);
