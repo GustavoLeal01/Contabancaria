@@ -21,18 +21,17 @@ public class Menu {
 
 		contacontroller contas = new contacontroller();
 // teste da classe C.C
-		contacorrente cc1 = new contacorrente(2, 123, 1, " Jéssica", 10000.0f, 15.0f);
-		cc1.visualizar();
-		cc1.sacar(11000.0f);
-		cc1.depositar(5000.0f);
-		cc1.visualizar();
+		System.out.println("\nCriar contas\n");
+		contacorrente cc1 = new contacorrente(contas.gerarNumero(), 123, 1, "joao da silva", 1000f, 100.0f);
+		contas.cadastrar(cc1);
+		contacorrente cc2 = new contacorrente(contas.gerarNumero(), 123, 1, "maria da silva", 3000f, 100.0f);
+		contas.cadastrar(cc2);
+		contapoupanca cp1 = new contapoupanca(contas.gerarNumero(), 123, 2, "marina da silva", 4000f, 12);
+		contas.cadastrar(cp1);
+		contapoupanca cp2 = new contapoupanca(contas.gerarNumero(), 123, 2, "helio da silva", 8000f, 15);
+		contas.cadastrar(cp1);
 
-		// teste pounpança
-		contapoupanca cp1 = new contapoupanca(3, 123, 2, " Fabiana", 10000.0f, 20);
-		cp1.visualizar();
-		cp1.sacar(11000.0f);
-		cp1.depositar(5000.0f);
-		cp1.visualizar();
+		contas.listarTodas();
 
 		int opcao;
 
@@ -76,6 +75,7 @@ public class Menu {
 				System.exit(0);
 			}
 			switch (opcao) {
+
 			case 1:
 				System.out.println(Cores.TEXT_GREEN_BOLD + Cores.ANSI_BLACK_BACKGROUND + "Criar Conta \n\n");
 
@@ -103,7 +103,8 @@ public class Menu {
 				case 2 -> {
 					System.out.println("Digite o dia de Aniversário da Conta: ");
 					aniversario = leia.nextInt();
-					contas.cadastrar(new contapoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+					contas.cadastrar(
+							new contapoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
 				}
 				}
 
@@ -112,7 +113,7 @@ public class Menu {
 
 			case 2:
 				System.out.println(Cores.TEXT_GREEN_BOLD + Cores.ANSI_BLACK_BACKGROUND + "Listar todas as contas\n\n");
-				
+
 				contas.listarTodas();
 				keyPress();
 				break;
@@ -120,17 +121,65 @@ public class Menu {
 			case 3:
 				System.out.println(Cores.TEXT_GREEN_BOLD + Cores.ANSI_BLACK_BACKGROUND
 						+ "Consultar dados da conta por número\n\n");
+
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+				contas.procurarPorNumero(numero);
+
 				keyPress();
 				break;
 
 			case 4:
 				System.out
 						.println(Cores.TEXT_GREEN_BOLD + Cores.ANSI_BLACK_BACKGROUND + "Atualizar dados da conta\n\n");
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+
+				if (conta.buscarNaCollection(numero) != null) {
+					System.out.println("Digite o numero da Agência: ");
+					agencia = leia.nextInt();
+					System.out.println("Digite o Nome do Titular: ");
+					leia.skip("\\RD?");
+					titular = leia.nextLine();
+
+					System.out.println("Digite o Saldo da conta (R$): ");
+					saldo = leia.nextFloat();
+
+					tipo = contas.retornaTipo(numero);
+
+					switch (tipo) {
+					case 1 -> {
+						System.out.println("Digite o limite de crédito (R$): ");
+						limite = leia.nextFloat();
+						contas.atualizar(new contacorrente(numero, agencia, tipo, titular, saldo, limite));
+
+					}
+					case 2 -> {
+						System.out.println("Digite o dia do aniversario da conta: ");
+						aniversario = leia.nextInt();
+						contas.atualizar(new contapoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+
+					}
+					default -> {
+
+					}
+					}
+
+				} else
+					System.out.println("\nConta não encontrada!");
+
 				keyPress();
 				break;
 
 			case 5:
 				System.out.println(Cores.TEXT_GREEN_BOLD + Cores.ANSI_BLACK_BACKGROUND + "Apagar conta\n\n");
+			System.out.println("Digite o número da conta: ");
+			numero = leia.nextInt();
+			
+			contas.deletar(numero);
+
+		
+				
 				keyPress();
 				break;
 

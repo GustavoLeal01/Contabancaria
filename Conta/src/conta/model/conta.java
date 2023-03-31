@@ -94,6 +94,16 @@ public abstract class conta {
 	System.out.println("            Saldo: " + this.saldo+"                   ");
 	
 	}
+
+	public static Object buscarNaCollection(int numero) {
+		// TODO Auto-generated method stub
+		return null;
+	
+	}
+
+	
+	}
 	
 	
-}
+	
+
